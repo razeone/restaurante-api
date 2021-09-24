@@ -31,7 +31,7 @@ public class PlatilloController {
     public ResponseEntity<Platillo> crearPlatillo(@RequestBody Platillo platillo) {
         try {
             Platillo _platillo = platilloRepository.save(platillo);
-            return new ResponseEntity<>(null, HttpStatus.CREATED);
+            return new ResponseEntity<>(_platillo, HttpStatus.CREATED);
         } catch(Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -2,10 +2,8 @@ package com.saboritech.restaurantapi.models;
 
 import java.util.Date;
 import java.sql.Timestamp;
-import java.util.Properties;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
