@@ -22,7 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 
 
-@Entity
+@Entity 
 @Table(name="orden")
 public class Orden {
     
