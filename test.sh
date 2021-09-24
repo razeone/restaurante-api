@@ -21,7 +21,7 @@ curl -H 'Content-Type: application/json' -X POST localhost:8080/api/orden -d '
 {
     "nombreCliente": "Juan", 
     "notasDeOrden": "Sin queso", 
-    "platillos": ["Enchiladas", "Pollo"]
+    "platillos": ["Enchiladas", "Pollo Frito"]
 }' -v
 
 

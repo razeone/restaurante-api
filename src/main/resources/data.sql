@@ -20,3 +20,10 @@ CREATE TABLE orden (
     totalOrden FLOAT,
     totalMasImpuesto FLOAT
 );
+
+DROP TABLE IF EXISTS platillos_orden;
+
+CREATE TABLE platillos_orden (
+    orden_id INT;
+    platillo_id INT;
+);
