@@ -34,10 +34,12 @@ public class OrdenserviceImpl implements OrdenService {
     @Override
     public ResponseEntity<Orden> crearOrden(OrdenRequest nuevaOrdenRequest) {
         List<Platillo> platillos = new ArrayList<>(nuevaOrdenRequest.getPlatillos().size());
+        Float totalOrden = 0.0f;
 
         for(String nombre : nuevaOrdenRequest.getPlatillos()) {
             Platillo platillo = platilloRepository.findByNombre(nombre);
             platillos.add(platillo);
+            totalOrden += platillo.getPrecio();
         }
 
         Orden orden = new Orden();
@@ -46,9 +48,9 @@ public class OrdenserviceImpl implements OrdenService {
         orden.setFechaHoraCreacionToNow();
         orden.setEstado(Estado.CREADA);
         orden.setPlatillos(platillos);
-        
+        orden.setTotalOrden(totalOrden);
+        orden.setTotalMasImpuesto();
         Orden nuevaOrden = ordenRepository.save(orden);
-        
         return new ResponseEntity<>(nuevaOrden, HttpStatus.OK);
     }
 

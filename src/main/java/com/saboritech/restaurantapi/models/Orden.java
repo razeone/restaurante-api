@@ -19,24 +19,21 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 
-
 @Entity
-@Table(name="orden")
+@Table(name = "orden")
 public class Orden {
-    
+
+    private final Float impuesto = 1.17f;
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String nombreCliente;
     private String notasDeOrden;
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(
-        name="platillos_orden",
-        joinColumns = @JoinColumn(name="orden_id", referencedColumnName="id"),
-        inverseJoinColumns = @JoinColumn(name="platillo_id", referencedColumnName="id")
-    )
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "platillos_orden", joinColumns = @JoinColumn(name = "orden_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "platillo_id", referencedColumnName = "id"))
     private List<Platillo> platillos;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -47,7 +44,6 @@ public class Orden {
 
     private Float totalOrden;
     private Float totalMasImpuesto;
-
 
     public long getId() {
         return this.id;
@@ -113,8 +109,14 @@ public class Orden {
         return this.totalMasImpuesto;
     }
 
-    public void setTotalMasImpuesto(Float totalMasImpuesto) {
-        this.totalMasImpuesto = totalMasImpuesto;
+    public void setTotalMasImpuesto() {
+        this.totalMasImpuesto = this.totalOrden * this.impuesto;
     }
+
+
+    public double getImpuesto() {
+        return this.impuesto;
+    }
+
 
 }
