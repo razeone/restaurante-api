@@ -19,7 +19,7 @@ public class OrdenRequest {
     @NotNull
     private List<String> platillos;
 
-    private void setPlatillos(List<String> platillos) {
+    public void setPlatillos(List<String> platillos) {
         this.platillos = Collections.unmodifiableList(platillos);
     }
 
