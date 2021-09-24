@@ -19,7 +19,30 @@ public class OrdenRequest {
     @NotNull
     private List<String> platillos;
 
-    private void setPlatillos(List<String> platillos) {
+    public void setPlatillos(List<String> platillos) {
         this.platillos = Collections.unmodifiableList(platillos);
     }
+
+
+    public String getNombreCliente() {
+        return this.nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getNotasDeOrden() {
+        return this.notasDeOrden;
+    }
+
+    public void setNotasDeOrden(String notasDeOrden) {
+        this.notasDeOrden = notasDeOrden;
+    }
+
+    public List<String> getPlatillos() {
+        return this.platillos;
+    }
+
+
 }
