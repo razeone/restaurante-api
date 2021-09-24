@@ -12,7 +12,7 @@ curl -H 'Content-Type: application/json' -X POST localhost:8080/api/platillo -d 
 {
     "nombre": "Enchiladas",
     "descripcion": "Verdes o rojas con queso y pollo", 
-    "precio": 89.90
+    "precio": 89.90,
     "vegetariano": false,
     "disponible": true
 }' 
