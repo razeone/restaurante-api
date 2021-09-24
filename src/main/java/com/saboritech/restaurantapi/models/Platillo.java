@@ -1,9 +1,6 @@
 package com.saboritech.restaurantapi.models;
 
-import java.util.Properties;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,20 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.Column;
 
 
 @Entity
 @Table(name="platillo")
 public class Platillo {
-    private static final long serialVersionUID = 1l;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
+    @Column(unique=true)
     private String nombre;
+    
     private String descripcion;
     private Boolean vegetariano;
     private Boolean disponible;
