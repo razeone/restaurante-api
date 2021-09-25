@@ -19,6 +19,8 @@ public class OrdenRequest {
     @NotNull
     private List<String> platillos;
 
+    private String estado;
+
     public void setPlatillos(List<String> platillos) {
         this.platillos = Collections.unmodifiableList(platillos);
     }
@@ -44,5 +46,13 @@ public class OrdenRequest {
         return this.platillos;
     }
 
+
+    public String getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
 }

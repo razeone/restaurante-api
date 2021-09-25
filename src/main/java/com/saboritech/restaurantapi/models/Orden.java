@@ -39,7 +39,7 @@ public class Orden {
     @Temporal(TemporalType.TIMESTAMP)
     Date fechaHoraCreacion;
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     private Estado estado;
 
     private Float totalOrden;
@@ -95,6 +95,25 @@ public class Orden {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public void setEstadoFromString(String estadoString) {
+        estadoString = estadoString.toUpperCase();
+        System.out.println(estadoString);
+        switch(estadoString) {
+            case "CREADA":
+                setEstado(Estado.CREADA);
+                System.out.println("Creada IN");
+            case "PREPARANDO":
+                System.out.println("Preparando IN");
+                setEstado(Estado.PREPARANDO);
+            case "LISTA":
+                setEstado(Estado.LISTA);
+            case "ENTREGADA":
+                setEstado(Estado.ENTREGADA);
+            default:
+                setEstado(Estado.CREADA);
+        }
     }
 
     public Float getTotalOrden() {

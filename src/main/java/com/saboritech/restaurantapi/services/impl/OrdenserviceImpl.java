@@ -2,6 +2,7 @@ package com.saboritech.restaurantapi.services.impl;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.saboritech.restaurantapi.models.Estado;
 import com.saboritech.restaurantapi.models.Orden;
@@ -18,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.stereotype.Service;
+
+import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,7 +54,7 @@ public class OrdenserviceImpl implements OrdenService {
         orden.setTotalOrden(totalOrden);
         orden.setTotalMasImpuesto();
         Orden nuevaOrden = ordenRepository.save(orden);
-        return new ResponseEntity<>(nuevaOrden, HttpStatus.OK);
+        return new ResponseEntity<>(nuevaOrden, HttpStatus.CREATED);
     }
 
     @Override
@@ -70,20 +73,88 @@ public class OrdenserviceImpl implements OrdenService {
 
     @Override
     public ResponseEntity<Orden> consultaOrden(long id) {
-        System.out.println("TODO");
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        Optional<Orden> orden = ordenRepository.findById(id);
+        if(orden.isPresent()) {
+			return new ResponseEntity<>(orden.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
     }
     
     @Override
     public ResponseEntity<HttpStatus> eliminaOrden(long id) {
-        System.out.println("TODO");
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        try {
+            ordenRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
-    public ResponseEntity<Orden> actualizaOrden(long id, Orden nuevaOrden) {
-        System.out.println("TODO");
-        return new ResponseEntity<>(null, HttpStatus.OK);        
+    public ResponseEntity<Orden> actualizaOrden(long id, OrdenRequest nuevaOrdenRequest) {
+        Optional<Orden> orden = ordenRepository.findById(id);
+
+        if(orden.isPresent()) {
+            Orden _orden = orden.get();
+            PlatillosTotal platillosTotal = new PlatillosTotal(nuevaOrdenRequest.getPlatillos());
+            platillosTotal.setPlatillosTotal();
+
+            _orden.setNombreCliente(nuevaOrdenRequest.getNombreCliente());
+            _orden.setNotasDeOrden(nuevaOrdenRequest.getNotasDeOrden());
+            _orden.setEstadoFromString(nuevaOrdenRequest.getEstado());
+            _orden.setPlatillos(platillosTotal.getPlatillos());
+            _orden.setTotalOrden(platillosTotal.getTotalOrden());
+            _orden.setTotalMasImpuesto();
+            Orden ordenActualizada = ordenRepository.save(_orden);
+            return new ResponseEntity<>(ordenActualizada, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
+
+    class PlatillosTotal {
+        private List<Platillo> platillos;
+        private List<String> platillosList;
+        private Float totalOrden = 0.0f;
+    
+        public PlatillosTotal(List<String> platillosList) {
+            setPlatillos(new ArrayList<>(platillosList.size()));
+            setPlatillos_list(platillosList);
+        }
+    
+        public void setPlatillosTotal() {
+            for(String nombre : platillosList) {
+                Platillo platillo = platilloRepository.findByNombre(nombre);
+                platillos.add(platillo);
+                totalOrden += platillo.getPrecio();
+            }
+        }
+    
+        public List<Platillo> getPlatillos() {
+            return this.platillos;
+        }
+    
+        public void setPlatillos(List<Platillo> platillos) {
+            this.platillos = platillos;
+        }
+    
+        public List<String> getPlatillosList() {
+            return this.platillosList;
+        }
+    
+        public void setPlatillos_list(List<String> platillos_list) {
+            this.platillosList = platillos_list;
+        }
+    
+        public Float getTotalOrden() {
+            return this.totalOrden;
+        }
+    
+        public void setTotalOrden(Float totalOrden) {
+            this.totalOrden = totalOrden;
+        }
+    
+    }
+    
     
 }

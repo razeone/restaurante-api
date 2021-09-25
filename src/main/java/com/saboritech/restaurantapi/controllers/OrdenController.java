@@ -41,13 +41,12 @@ public class OrdenController {
 
     @GetMapping("/orden/{id}")
     public ResponseEntity<Orden> consultaOrden(@PathVariable(value="id") long id) {
-        System.out.println("TODO");
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return ordenService.consultaOrden(id);
     }
 
     @PutMapping("/orden/{id}")
-    public ResponseEntity<Orden> actualizaOrden(@PathVariable("id") long id, @RequestBody Orden orden) {
-        System.out.println("TODO");
+    public ResponseEntity<Orden> actualizaOrden(@PathVariable("id") long id, @RequestBody OrdenRequest nuevaOrdenRequest) {
+        ordenService.actualizaOrden(id, nuevaOrdenRequest);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 

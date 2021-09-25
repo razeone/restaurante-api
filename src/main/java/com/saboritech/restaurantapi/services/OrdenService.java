@@ -14,7 +14,7 @@ public interface OrdenService {
     ResponseEntity<Orden> crearOrden(OrdenRequest nuevaOrdenRequest);
     ResponseEntity<List<Orden>> listaOrdenes();
     ResponseEntity<Orden> consultaOrden(long id);
-    ResponseEntity<Orden> actualizaOrden(long id, Orden nuevaOrden);
+    ResponseEntity<Orden> actualizaOrden(long id, OrdenRequest nuevaOrdenRequest);
     ResponseEntity<HttpStatus> eliminaOrden(long id);
     
 }
