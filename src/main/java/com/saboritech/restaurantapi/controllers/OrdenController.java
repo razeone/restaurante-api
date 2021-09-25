@@ -46,13 +46,11 @@ public class OrdenController {
 
     @PutMapping("/orden/{id}")
     public ResponseEntity<Orden> actualizaOrden(@PathVariable("id") long id, @RequestBody OrdenRequest nuevaOrdenRequest) {
-        ordenService.actualizaOrden(id, nuevaOrdenRequest);
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return ordenService.actualizaOrden(id, nuevaOrdenRequest);
     }
 
     @DeleteMapping("/orden/{id}")
     public ResponseEntity<HttpStatus> eliminaOrden(@PathVariable(value="id") long id) {
-        System.out.println("TODO");
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return ordenService.eliminaOrden(id);
     }
 }
