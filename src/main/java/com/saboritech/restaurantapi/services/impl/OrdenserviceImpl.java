@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.saboritech.restaurantapi.models.Estado;
 import com.saboritech.restaurantapi.models.Orden;
 import com.saboritech.restaurantapi.models.Platillo;
 
@@ -19,8 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.stereotype.Service;
-
-import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,7 +46,7 @@ public class OrdenserviceImpl implements OrdenService {
         orden.setNombreCliente(nuevaOrdenRequest.getNombreCliente());
         orden.setNotasDeOrden(nuevaOrdenRequest.getNotasDeOrden());
         orden.setFechaHoraCreacionToNow();
-        orden.setEstado(Estado.CREADA);
+        orden.setEstado(nuevaOrdenRequest.getEstado().toUpperCase());
         orden.setPlatillos(platillos);
         orden.setTotalOrden(totalOrden);
         orden.setTotalMasImpuesto();
@@ -102,7 +99,7 @@ public class OrdenserviceImpl implements OrdenService {
 
             _orden.setNombreCliente(nuevaOrdenRequest.getNombreCliente());
             _orden.setNotasDeOrden(nuevaOrdenRequest.getNotasDeOrden());
-            _orden.setEstadoFromString(nuevaOrdenRequest.getEstado());
+            _orden.setEstado(nuevaOrdenRequest.getEstado().toUpperCase());
             _orden.setPlatillos(platillosTotal.getPlatillos());
             _orden.setTotalOrden(platillosTotal.getTotalOrden());
             _orden.setTotalMasImpuesto();

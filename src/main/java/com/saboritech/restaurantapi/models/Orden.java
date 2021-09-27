@@ -10,8 +10,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Enumerated;
-import javax.persistence.EnumType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToMany;
@@ -39,8 +37,7 @@ public class Orden {
     @Temporal(TemporalType.TIMESTAMP)
     Date fechaHoraCreacion;
 
-    //@Enumerated(EnumType.STRING)
-    private Estado estado;
+    private String estado;
 
     private Float totalOrden;
     private Float totalMasImpuesto;
@@ -89,31 +86,12 @@ public class Orden {
         this.fechaHoraCreacion = fechaHoraCreacion;
     }
 
-    public Estado getEstado() {
+    public String getEstado() {
         return this.estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public void setEstadoFromString(String estadoString) {
-        estadoString = estadoString.toUpperCase();
-        System.out.println(estadoString);
-        switch(estadoString) {
-            case "CREADA":
-                setEstado(Estado.CREADA);
-                System.out.println("Creada IN");
-            case "PREPARANDO":
-                System.out.println("Preparando IN");
-                setEstado(Estado.PREPARANDO);
-            case "LISTA":
-                setEstado(Estado.LISTA);
-            case "ENTREGADA":
-                setEstado(Estado.ENTREGADA);
-            default:
-                setEstado(Estado.CREADA);
-        }
     }
 
     public Float getTotalOrden() {

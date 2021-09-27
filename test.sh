@@ -21,7 +21,8 @@ curl -H 'Content-Type: application/json' -X POST localhost:8080/api/orden -d '
 {
     "nombreCliente": "Juan", 
     "notasDeOrden": "Sin queso", 
-    "platillos": ["Enchiladas", "Pollo Frito"]
+    "platillos": ["Enchiladas", "Pollo Frito"],
+    "estado": "RECIBIDA"
 }' | jq
 
 curl -H 'Content-Type: application/json' -X GET localhost:8080/api/orden | jq
