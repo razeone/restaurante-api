@@ -33,22 +33,16 @@ public class OrdenserviceImpl implements OrdenService {
 
     @Override
     public ResponseEntity<Orden> crearOrden(OrdenRequest nuevaOrdenRequest) {
-        List<Platillo> platillos = new ArrayList<>(nuevaOrdenRequest.getPlatillos().size());
-        Float totalOrden = 0.0f;
-
-        for(String nombre : nuevaOrdenRequest.getPlatillos()) {
-            Platillo platillo = platilloRepository.findByNombre(nombre);
-            platillos.add(platillo);
-            totalOrden += platillo.getPrecio();
-        }
+        PlatillosTotal platillosTotal = new PlatillosTotal(nuevaOrdenRequest.getPlatillos());
+        platillosTotal.setPlatillosTotal();
 
         Orden orden = new Orden();
         orden.setNombreCliente(nuevaOrdenRequest.getNombreCliente());
         orden.setNotasDeOrden(nuevaOrdenRequest.getNotasDeOrden());
         orden.setFechaHoraCreacionToNow();
         orden.setEstado(nuevaOrdenRequest.getEstado().toUpperCase());
-        orden.setPlatillos(platillos);
-        orden.setTotalOrden(totalOrden);
+        orden.setPlatillos(platillosTotal.getPlatillos());
+        orden.setTotalOrden(platillosTotal.getTotalOrden());
         orden.setTotalMasImpuesto();
         Orden nuevaOrden = ordenRepository.save(orden);
         return new ResponseEntity<>(nuevaOrden, HttpStatus.CREATED);
