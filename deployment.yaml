@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: restaurant-api
+  name: restaurant-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurant-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: restaurant-api
+    spec:
+      containers:
+      - image: quay.io/jorge_alcaraz_ibm/restaurant-api:v0.2
+        name: restaurant-api
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: restaurant-api
+  name: restaurant-api
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: restaurant-api
+  type: NodePort
+status:
+  loadBalancer: {}
+

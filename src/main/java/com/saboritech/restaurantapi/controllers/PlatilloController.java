@@ -79,7 +79,7 @@ public class PlatilloController {
 
     }
 
-    @DeleteMapping("/libro/{id}")
+    @DeleteMapping("/platillo/{id}")
     public ResponseEntity<HttpStatus> eliminaLibro(@PathVariable(value="id") long id) {
         try {
             platilloRepository.deleteById(id);
